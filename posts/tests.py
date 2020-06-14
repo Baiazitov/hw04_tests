@@ -6,10 +6,6 @@ from .models import Post, Group
 from django.contrib.auth.models import User
 
 class ProfileTest(TestCase):
-    def __init__(self, user,group):
-        self.user = User.objects.user(username="Ivanыфв1ew234", email="Raiqw2esqeqweeeqwerom@gmail.com", password="Raieqweqwe2seromwe!",follow=True)
-        self.group = Group.objects.create(title="title", slug='slug-qwerewq', description='description')
-
     def setUp(self):
         self.client = Client()
         self.adminuser = User.objects.create_superuser(username="Raiqw2eserom", email="Raiqw2eserom@gmail.com", password="Raiqwe2seromwe!")
@@ -32,7 +28,7 @@ class ProfileTest(TestCase):
         resp = self.client.get(reverse('new_post'))
         self.assertRedirects(resp,"/auth/login/?next=/new/")
             
-
+#вариант 2
     def test_auth_user_can_publish0(self):
         resp = self.client.post(reverse("new_post"), data={'group': self.group.id, 'text': self.text}, follow=True)
         self.assertEqual(resp.status_code, 200)
