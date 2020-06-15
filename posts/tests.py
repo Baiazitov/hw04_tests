@@ -25,16 +25,30 @@ class TestPostsUnauthorized(TestCase):
 class TestPostsAuthorized(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username="Testuser", email="test@gmail.com", password="Raieqweqwe2seromwe!")
-        self.group = Group.objects.create(title="title", slug='slug-qwerewq', description='description')
+        self.user = User.objects.create_user(
+            username="Testuser",
+            email="test@gmail.com",
+            password="Raieqweqwe2seromwe!"
+            )
+        self.group = Group.objects.create(
+            title="title",
+            slug='slug-qwerewq',
+            description='description'
+            )
         self.client.force_login(self.user)
 
     def test_profile(self):
-        response = self.client.get(reverse('profile', kwargs={'username': self.user.username}))
+        response = self.client.get(
+            reverse('profile', kwargs={'username': self.user.username})
+            )
         self.assertEqual(response.status_code, 200)
             
     def test_auth_user_can_publish(self):
-        resp = self.client.post(reverse("new_post"), data={'group': self.group.id, 'text': 'test'}, follow=True)
+        resp = self.client.post(
+            reverse("new_post"),
+            data={'group': self.group.id, 'text': 'test'},
+            follow=True
+            )
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(Post.objects.count(), 1)
         created_post = Post.objects.all().first()

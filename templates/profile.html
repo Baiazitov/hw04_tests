@@ -3,7 +3,6 @@
 {% block header %}Последние обновления на сайте {% endblock %}
 {% block content %}
 <main role="main" class="container">
-
         {% include "profile_card.html" with author=author paginator=paginator %}
            <div class="col-md-9">                
                {% for post in page %}
