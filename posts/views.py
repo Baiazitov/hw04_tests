@@ -53,7 +53,6 @@ def profile(request, username):
         "profile.html",
         {
             "author": author,
-            "post_count": post_list.count,
             "page": page,
             "paginator": paginator
         }
@@ -73,7 +72,7 @@ def post_edit(request, username, post_id):
 
     form = PostForm(request.POST or None, instance=post)
     if form.is_valid():
-        post = form.save(commit=False)
+        post = form.save()
         post.save()
         return redirect('post', username=username, post_id=post_id)
 
